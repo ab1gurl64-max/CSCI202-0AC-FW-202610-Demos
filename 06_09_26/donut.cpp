@@ -65,3 +65,54 @@ const std::map<std::string, drizzleType> Donut::strToDrizzle =
      {"raspberry", drizzleType::RASPBERRY},
      {"special", drizzleType::SPECIALDRIZZLE},
      {"none", drizzleType::NODRIZZLE}};
+
+std::string toLower(std::string str)
+{
+
+    for (int i = 0; i < str.length(); i++)
+    {
+        str[i] = std::tolower(str[i]);
+    }
+    return str;
+}
+
+Donut::Donut(std::string icing, std::string topping, std::string drizzle)
+{
+    setIcing(icing);
+    setTopping(topping);
+    setDrizzle(drizzle);
+}
+
+void Donut::setIcing(std::string icing)
+{
+    this->icing = NOICE;
+}
+
+void Donut::setTopping(std::string topping)
+{
+    // std::string toppingcpy = topping;
+    // std::transform(topping.begin(), topping.end(), toppingcpy.begin(), ::tolower);
+    if (!strToTop.count(toLower(topping)))
+    {
+        throw std::invalid_argument(topping + " is not a valid topping");
+    }
+    this->topping = strToTop.at(toLower(topping));
+}
+
+void Donut::setDrizzle(std::string drizzle)
+{
+    this->drizzle = drizzleType::NODRIZZLE;
+}
+
+std::string Donut::toString() const
+{
+    std::string out;
+    out = "Icing: " + iceToStr.at(icing) + " Topping: " + topToStr.at(topping) + " Drizzle: " + drizzleToStr.at(drizzle);
+    return out;
+}
+
+std::ostream &operator<<(std::ostream &out, const Donut &d)
+{
+    out << d.toString();
+    return out;
+}
