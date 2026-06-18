@@ -5,7 +5,8 @@ template <class t>
 struct node
 {
     t *data;
-    node<t> *link;
+    node<t> *link; // forward link
+    node<t> *back; // backward link
     ~node()
     {
         delete data;

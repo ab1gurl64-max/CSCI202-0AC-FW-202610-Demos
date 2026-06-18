@@ -1,4 +1,5 @@
 #include "unorderedLinkedList.h"
+#include "doublyLinkedList.h"
 #include "donut.h"
 
 int main()
@@ -16,7 +17,27 @@ int main()
     intList.print();
     std::cout << std::endl;
     std::cout << intList.search(6) << std::endl;
-    intList.deleteNode(6);
+    try
+    {
+        intList.deleteNode(6);
+    }
+    catch (...)
+    {
+    }
+
+    DoublyLinkedList<double> doubleList;
+    doubleList.insert(3.2);
+    doubleList.insert(9.23);
+    doubleList.insert(1.221);
+    doubleList.print();
+    std::cout << std::endl;
+    doubleList.reversePrint();
+    std::cout << std::endl;
+    doubleList.deleteNode(9.23);
+    doubleList.print();
+    std::cout << std::endl;
+    doubleList.reversePrint();
+    std::cout << std::endl;
 
     return 0;
 }
