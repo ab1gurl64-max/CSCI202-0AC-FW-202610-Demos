@@ -8,7 +8,7 @@ class LinkedListIterator
 public:
     LinkedListIterator();
     LinkedListIterator(node<t> *);
-    t operator*();
+    t *operator*();
     LinkedListIterator<t> operator++();
     bool operator==(const LinkedListIterator<t> &) const;
     bool operator!=(const LinkedListIterator<t> &) const;
@@ -28,10 +28,30 @@ LinkedListIterator<t>::LinkedListIterator(node<t> *n)
     current = n;
 }
 template <class t>
-t LinkedListIterator<t>::operator*()
+t *LinkedListIterator<t>::operator*()
 {
     if (current != nullptr)
-        return *(current->data);
-    return t();
+        return current->data;
+    return nullptr;
+}
+template <class t>
+LinkedListIterator<t> LinkedListIterator<t>::operator++()
+{
+    if (current != nullptr)
+    {
+        return LinkedListIterator<t>(current->link);
+    }
+    else
+        return LinkedListIterator<t>();
+}
+template <class t>
+bool LinkedListIterator<t>::operator==(const LinkedListIterator<t> &otherItr) const
+{
+    return this->current == otherItr.current;
+}
+template <class t>
+bool LinkedListIterator<t>::operator!=(const LinkedListIterator<t> &otherItr) const
+{
+    return !(*this == otherItr);
 }
 #endif

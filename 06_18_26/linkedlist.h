@@ -1,6 +1,7 @@
 #ifndef LINKED_H
 #define LINKED_H
 #include "node.h"
+#include "linkedListIterator.h"
 #include <iostream>
 #include <string>
 
@@ -21,6 +22,8 @@ public:
     virtual void deleteNode(const t &deleteItem) = 0;
     virtual bool search(const t &searchItem) const = 0;
     void print(std::ostream &, std::string = " ") const;
+    LinkedListIterator<t> begin() { return LinkedListIterator<t>(head) };
+    LinkedListIterator<t> end() { return LinkedListIterator<t>() };
 
 protected:
     node<t> *head;
