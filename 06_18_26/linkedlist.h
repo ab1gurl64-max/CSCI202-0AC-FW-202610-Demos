@@ -21,9 +21,9 @@ public:
     virtual void insert(const t &newInfo) = 0;
     virtual void deleteNode(const t &deleteItem) = 0;
     virtual bool search(const t &searchItem) const = 0;
-    void print(std::ostream &, std::string = " ") const;
-    LinkedListIterator<t> begin() { return LinkedListIterator<t>(head) };
-    LinkedListIterator<t> end() { return LinkedListIterator<t>() };
+    void print(std::ostream & = std::cout, std::string = " ") const;
+    LinkedListIterator<t> begin() { return LinkedListIterator<t>(head); };
+    LinkedListIterator<t> end() { return LinkedListIterator<t>(); };
 
 protected:
     node<t> *head;
@@ -37,18 +37,18 @@ private:
 template <class t>
 LinkedList<t>::LinkedList()
 {
-    head = nullptr;
-    tail = nullptr;
+    this->head = nullptr;
+    this->tail = nullptr;
     count = 0;
 }
 
 template <class t>
 LinkedList<t>::LinkedList(const LinkedList<t> &otherList)
 {
-    head = nullptr;
-    tail = nullptr;
-    count = 0;
-    copyList(otherList);
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->count = 0;
+    this->copyList(otherList);
 }
 
 template <class t>
@@ -56,7 +56,7 @@ const LinkedList<t> &LinkedList<t>::operator=(const LinkedList<t> &listToCopy)
 {
     if (this != *listToCopy) // prevent self copy
     {
-        copyList(listToCopy);
+        this->copyList(listToCopy);
     }
     return *this;
 }
@@ -64,13 +64,13 @@ const LinkedList<t> &LinkedList<t>::operator=(const LinkedList<t> &listToCopy)
 template <class t>
 LinkedList<t>::~LinkedList()
 {
-    destroyList();
+    this->destroyList();
 }
 
 template <class t>
 void LinkedList<t>::destroyList()
 {
-    if (!isEmptyList())
+    if (!this->isEmptyList())
     {
         node<t> *temp;
         while (head != nullptr)
@@ -87,13 +87,13 @@ void LinkedList<t>::destroyList()
 template <class t>
 bool LinkedList<t>::isEmptyList() const
 {
-    return head == nullptr || count == 0;
+    return this->head == nullptr || count == 0;
 }
 
 template <class t>
 int LinkedList<t>::length() const
 {
-    return count;
+    return this->count;
 }
 
 template <class t>
@@ -114,7 +114,7 @@ void LinkedList<t>::print(std::ostream &out, std::string separator) const
     if (!isEmptyList())
     {
         node<t> *current;
-        current = head;
+        current = this->head;
         while (current != nullptr)
         {
             out << *(current->data) << separator;
@@ -134,15 +134,15 @@ void LinkedList<t>::copyList(const LinkedList<t> &otherList)
     }
     if (otherList.isEmptyList())
     {
-        head = nullptr;
-        tail = nullptr;
-        count = 0;
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->count = 0;
     }
     else
     {
         // begin the copy
         current = otherList.head;
-        count = otherList.count;
+        this->count = otherList.count;
         // node2 version
         // this->head = new node2<t>(otherList.head);
         this->head = new node<t>;
