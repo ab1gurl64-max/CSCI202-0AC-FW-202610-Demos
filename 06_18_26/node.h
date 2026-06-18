@@ -22,6 +22,12 @@ struct node2
 };
 
 template <class t>
+node2<t>::node2()
+{
+    link = nullptr;
+}
+
+template <class t>
 node2<t>::node2(t d, node2<t> *link) : data(d)
 {
     this->link = link;
