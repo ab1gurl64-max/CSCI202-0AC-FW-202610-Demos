@@ -27,15 +27,48 @@ private:
 };
 
 template <class t>
-inline LinkedStack<t>::LinkedStack()
+LinkedStack<t>::LinkedStack()
 {
     stackTop = nullptr;
     count = 0;
 }
-#endif
+template <class t>
+LinkedStack<t>::LinkedStack(const LinkedStack<t> &stackToCopy)
+{
+    stackTop = nullptr;
+    count = 0;
+    copyStack(stackToCopy);
+}
+template <class t>
+const LinkedStack<t> &LinkedStack<t>::operator=(const LinkedStack<t> &stackToCopy)
+{
+    if (this != &stackToCopy)
+    {
+        copyStack(stackToCopy);
+    }
+    return *this;
+}
+template <class t>
+void LinkedStack<t>::initializeStack()
+{
+    node<t> *temp;
+    while (stackTop != nullptr)
+    {
+        temp = stackTop;
+        stackTop = stackTop->link;
+        delete temp;
+    }
+    count = 0;
+}
 
 template <class t>
-inline void LinkedStack<t>::copyStack(const LinkedStack<t> &stackToCopy)
+LinkedStack<t>::~LinkedStack()
+{
+    initializeStack();
+}
+
+template <class t>
+void LinkedStack<t>::copyStack(const LinkedStack<t> &stackToCopy)
 {
     node<t> *newNode;
     node<t> *current;
@@ -62,3 +95,61 @@ inline void LinkedStack<t>::copyStack(const LinkedStack<t> &stackToCopy)
     }
     this->count = stackToCopy.count;
 }
+
+template <class t>
+bool LinkedStack<t>::isFullStack() const
+{
+    return false;
+}
+
+template <class t>
+bool LinkedStack<t>::isEmptyStack() const
+{
+    return stackTop == nullptr;
+}
+
+template <class t>
+void LinkedStack<t>::push(const t &newItem)
+{
+    node<t> *newNode;
+    newNode = new node<t>(newItem);
+    newNode->link = stackTop;
+    stackTop = newNode;
+    count++;
+}
+
+template <class t>
+t LinkedStack<t>::peek() const
+{
+    if (isEmptyStack())
+    {
+        throw std::out_of_range("Empty Stack");
+    }
+    return stackTop->data;
+}
+
+template <class t>
+t &LinkedStack<t>::top()
+{
+    if (isEmptyStack())
+    {
+        throw std::out_of_range("Empty Stack");
+    }
+    return stackTop->data;
+}
+
+template <class t>
+t LinkedStack<t>::pop()
+{
+    if (isEmptyStack())
+    {
+        throw std::underflow_error("Stack underfow. Cannot remove from an empty stack.");
+    }
+    t copy = stackTop->data;
+    node<t> *temp = stackTop;
+    stackTop = stackTop->link;
+    delete temp;
+    count--;
+    return copy;
+}
+#endif

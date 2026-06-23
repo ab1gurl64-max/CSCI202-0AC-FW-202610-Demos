@@ -27,7 +27,7 @@ private:
 };
 
 template <class t>
-inline ArrayStack<t>::ArrayStack(int max)
+ArrayStack<t>::ArrayStack(int max)
 {
     if (max <= 0)
     {
@@ -41,10 +41,46 @@ inline ArrayStack<t>::ArrayStack(int max)
         list[i] = nullptr;
     }
 }
-#endif
+template <class t>
+ArrayStack<t>::ArrayStack(const ArrayStack<t> &stackToCopy)
+{
+    stackTop = 0;
+    list = nullptr;
+    maxStackSize = 0;
+    copyStack(stackToCopy);
+}
+template <class t>
+const ArrayStack<t> &ArrayStack<t>::operator=(const ArrayStack<t> &stackToCopy)
+{
+    if (this != &stackToCopy)
+    {
+        copyStack(stackToCopy);
+    }
+    return *this;
+}
+template <class t>
+void ArrayStack<t>::initializeStack()
+{
+    if (!isEmptyStack())
+    {
+        for (int i = 0; i < stackTop; i++)
+        {
+            delete list[i];
+            list[i] = nullptr;
+        }
+    }
+    stackTop = 0;
+}
 
 template <class t>
-inline void ArrayStack<t>::copyStack(const ArrayStack<t> &stackToCopy)
+ArrayStack<t>::~ArrayStack()
+{
+    initializeStack();
+    delete[] list;
+}
+
+template <class t>
+void ArrayStack<t>::copyStack(const ArrayStack<t> &stackToCopy)
 {
     if (!isEmptyStack())
     {
@@ -62,3 +98,64 @@ inline void ArrayStack<t>::copyStack(const ArrayStack<t> &stackToCopy)
         this->list[i] = new t(*(stackToCopy.list[i]));
     }
 }
+
+template <class t>
+bool ArrayStack<t>::isFullStack() const
+{
+    return stackTop == maxStackSize;
+}
+
+template <class t>
+bool ArrayStack<t>::isEmptyStack() const
+{
+    return stackTop == 0;
+}
+
+template <class t>
+void ArrayStack<t>::push(const t &newItem)
+{
+    if (!isFullStack())
+    {
+        list[stackTop] = new t(newItem);
+        stackTop++;
+    }
+    else
+    {
+        throw std::overflow_error("Stack Overflow. Cannot add to a full stack");
+    }
+}
+
+template <class t>
+t ArrayStack<t>::peek() const
+{
+    if (isEmptyStack())
+    {
+        throw std::out_of_range("Empty Stack");
+    }
+    return *(list[stackTop - 1]);
+}
+
+template <class t>
+t &ArrayStack<t>::top()
+{
+    if (isEmptyStack())
+    {
+        throw std::out_of_range("Empty Stack");
+    }
+    return *(list[stackTop - 1]);
+}
+
+template <class t>
+t ArrayStack<t>::pop()
+{
+    if (isEmptyStack())
+    {
+        throw std::underflow_error("Stack underfow. Cannot remove from an empty stack.");
+    }
+    t copy = *(list[stackTop - 1]);
+    delete list[stackTop - 1];
+    list[stackTop - 1] = nullptr;
+    stackTop--;
+    return copy;
+}
+#endif
