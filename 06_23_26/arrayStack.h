@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 template <class t>
-class ArrayStack : public StackADT
+class ArrayStack : public StackADT<t>
 {
 public:
     ArrayStack(int = StackADT<t>::DEFAULT_STACK_SIZE);

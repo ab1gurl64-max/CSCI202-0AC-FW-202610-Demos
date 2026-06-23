@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 template <class t>
-class LinkedStack : public StackADT
+class LinkedStack : public StackADT<t>
 {
 public:
     LinkedStack();
