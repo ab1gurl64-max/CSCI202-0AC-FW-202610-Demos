@@ -49,6 +49,26 @@ inline ArrayQueue<t>::ArrayQueue(int max)
 }
 
 template <class t>
+inline ArrayQueue<t>::ArrayQueue(const ArrayQueue<t> &queueToCopy)
+{
+    maxQueueSize = 0;
+    count = 0;
+    queueFront = maxQueueSize - 1;
+    queueRear = maxQueueSize - 1;
+    copyQueue(queueToCopy);
+}
+
+template <class t>
+inline const ArrayQueue<t> &ArrayQueue<t>::operator=(const ArrayQueue<t> &queueToCopy)
+{
+    if (this != &queueToCopy)
+    {
+        copyQueue(queueToCopy);
+    }
+    return *this;
+}
+
+template <class t>
 inline ArrayQueue<t>::~ArrayQueue()
 {
     initializeQueue();
@@ -97,4 +117,56 @@ inline t ArrayQueue<t>::back() const
         throw std::out_of_range("Cannot get the first item of an empty queue");
     }
     return *(list[queueRear]);
+}
+
+template <class t>
+inline void ArrayQueue<t>::enqueue(const t &queueElement)
+{
+    if (isFullQueue())
+    {
+        throw std::overflow_error("Cannot add to a full queue.");
+    }
+    queueRear = (queueRear + 1) % maxQueueSize;
+    list[queueRear] = new t(queueElement);
+    count++;
+}
+
+template <class t>
+inline t ArrayQueue<t>::dequeue()
+{
+    if (isEmptyQueue())
+    {
+        throw std::out_of_range("Cannot delete from an empty queue");
+    }
+    queueFront = (queueFront + 1) % maxQueueSize;
+    t copy = *(list[queueFront]);
+    delete list[queueFront];
+    list[queueFront] = nullptr;
+    count--;
+    return copy;
+}
+
+template <class t>
+inline void ArrayQueue<t>::copyQueue(const ArrayQueue<t> &queueToCopy)
+{
+    if (!isEmptyQueue())
+    {
+        this->initializeQueue();
+    }
+    if (maxQueueSize < queueToCopy.maxQueueSize)
+    {
+        delete[] list;
+        maxQueueSize = queueToCopy.maxQueueSize;
+        list = new t *[maxQueueSize];
+        for (int i = 0; i < this->maxQueueSize; i++)
+        {
+            list[i] = nullptr;
+        }
+    }
+    queueFront = maxQueueSize - 1;
+    queueRear = maxQueueSize - 1;
+    for (int i = (queueToCopy.queueFront + 1) % queueToCopy.maxQueueSize; i != (queueToCopy.queueRear + 1) % queueToCopy.maxQueueSize; i = (i + 1) % queueToCopy.maxQueueSize)
+    {
+        enqueue(*(queueToCopy.list[i]));
+    }
 }
