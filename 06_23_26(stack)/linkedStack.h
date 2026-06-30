@@ -82,18 +82,21 @@ void LinkedStack<t>::copyStack(const LinkedStack<t> &stackToCopy)
         this->stackTop = nullptr;
         count = 0;
     }
-    current = stackToCopy.stackTop;
-    this->stackTop = new node<t>(current.data);
-    last = this->stackTop;
-    current = current->link;
-    while (current != nullptr)
+    else
     {
-        newNode = new node<t>(current.data);
-        last->link = newNode;
-        last = newNode;
+        current = stackToCopy.stackTop;
+        this->stackTop = new node<t>(current->data);
+        last = this->stackTop;
         current = current->link;
+        while (current != nullptr)
+        {
+            newNode = new node<t>(current->data);
+            last->link = newNode;
+            last = newNode;
+            current = current->link;
+        }
+        this->count = stackToCopy.count;
     }
-    this->count = stackToCopy.count;
 }
 
 template <class t>
