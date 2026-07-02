@@ -46,8 +46,8 @@ int main()
     // bubbleSort(blist);
     // selectionSort(slist);
     // insertionSort(iList, 1000000);
-    quickSort(iList, 0, 999999, compareInt);
-    std::cout << "Quick Sort Finished" << std::endl;
+    mergeSort(iList, 0, 999999);
+    std::cout << "Merge Sort Finished" << std::endl;
 
     Person **people = new Person *[10];
     people[0] = new Person("Brian Busch", 32, 168);

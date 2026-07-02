@@ -129,4 +129,61 @@ void quickSort(t list[], int low, int high, int (*comp)(t &, t &))
     }
 }
 
+template <class t>
+void merge(t array[], int left, int mid, int right)
+{
+    int leftSize = mid - left + 1;
+    int rightSize = right - mid;
+    t *leftArray = new t[leftSize];
+    t *rightArray = new t[rightSize];
+    for (int i = 0; i < leftSize; i++)
+    {
+        leftArray[i] = array[left + i];
+    }
+    for (int i = 0; i < rightSize; i++)
+    {
+        rightArray[i] = array[mid + 1 + i];
+    }
+    int leftIndex = 0;
+    int rightIndex = 0;
+    int mergeIndex = left;
+    while (leftIndex < leftSize && rightIndex < rightSize)
+    {
+        if (leftArray[leftIndex] <= rightArray[rightIndex])
+        {
+            array[mergeIndex] = leftArray[leftIndex];
+            leftIndex++;
+        }
+        else
+        {
+            array[mergeIndex] = rightArray[rightIndex];
+            rightIndex++;
+        }
+        mergeIndex++;
+    }
+    while (leftIndex < leftSize)
+    {
+        array[mergeIndex++] = leftArray[leftIndex++];
+    }
+    while (rightIndex < rightSize)
+    {
+        array[mergeIndex++] = rightArray[rightIndex++];
+    }
+    delete[] leftArray;
+    delete[] rightArray;
+}
+
+template <class t>
+void mergeSort(t array[], int begin, int end)
+{
+    if (begin >= end)
+    {
+        return;
+    }
+    int mid = begin + (end - begin) / 2;
+    mergeSort(array, begin, mid);
+    mergeSort(array, mid + 1, end);
+    merge(array, begin, mid, end);
+}
+
 #endif
