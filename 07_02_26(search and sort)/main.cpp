@@ -7,6 +7,8 @@
 #include "searchSort.h"
 #include "person.h"
 
+// most fun part of midterm
+
 int compareInt(int &first, int &second);
 int compareByName(Person *&, Person *&);
 int compareByAge(Person *&, Person *&);
