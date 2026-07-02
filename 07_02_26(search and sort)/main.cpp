@@ -36,8 +36,9 @@ int main()
         std::cout << *(*it) << " is in the list on line " << count << std::endl;
     }
 
-    bubbleSort(blist);
-    std::cout << "Bubble Sort Finished" << std::endl;
+    // bubbleSort(blist);
+    selectionSort(slist);
+    std::cout << "Selection Sort Finished" << std::endl;
     return 0;
 }
 
