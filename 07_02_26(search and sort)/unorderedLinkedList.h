@@ -16,11 +16,15 @@ public:
     void insert(const t &newInfo);
     void deleteNode(const t &deleteItem);
     bool search(const t &searchItem) const;
+    void mergeSort();
 
 private:
     directionType direction;
     void insertFirst(node<t> *newNode);
     void insertLast(node<t> *newNode);
+    void recMergeSort(node<t> *&start);
+    void divideList(node<t> *left, node<t> *&right);
+    node<t> *mergeList(node<t> *left, node<t> *right);
 };
 
 template <class t>
@@ -139,4 +143,114 @@ void UnorderedLinkedList<t>::insertLast(node<t> *newNode)
     this->tail = newNode;       // move tail to the new last node
 }
 
+template <class t>
+inline void UnorderedLinkedList<t>::mergeSort()
+{
+    recMergeSort(this->head);
+    if (this->head == nullptr)
+    {
+        this->tail = nullptr;
+    }
+    else
+    {
+        this->tail = this->head;
+        while (this->tail->link != nullptr)
+        {
+            this->tail = this->tail->link;
+        }
+    }
+}
+template <class t>
+inline void UnorderedLinkedList<t>::recMergeSort(node<t> *&start)
+{
+    node<t> *otherStart;
+    if (start != nullptr)
+    {
+        if (start->link = nullptr)
+        {
+            divideList(start, otherStart);
+            recMergeSort(start);
+            recMergeSort(otherStart);
+            start = mergeList(start, otherStart);
+        }
+    }
+}
+template <class t>
+inline void UnorderedLinkedList<t>::divideList(node<t> *left, node<t> *&right)
+{
+    node<t> *middle;
+    node<t> *current;
+    if (left == nullptr || left->link == nullptr)
+    {
+        right = nullptr;
+    }
+    else
+    {
+        middle = left;
+        current = left->link;
+        if (current != nullptr)
+        {
+            current = current->link;
+        }
+        while (current != nullptr)
+        {
+            middle = middle->link;
+            current = current->link;
+            if (current != nullptr)
+            {
+                current = current->link;
+            }
+        }
+        right = middle->link;
+        middle->link = nullptr;
+    }
+}
+template <class t>
+inline node<t> *UnorderedLinkedList<t>::mergeList(node<t> *left, node<t> *right)
+{
+    node<t> *lastSmall;
+    node<t> *newHead;
+    if (left == nullptr)
+    {
+        return right;
+    }
+    if (right == nullptr)
+    {
+        return left;
+    }
+    if (*(left->data) <= *(right->data))
+    {
+        newHead = left;
+        left = left->link;
+    }
+    else
+    {
+        newHead = right;
+        right = right->link;
+    }
+    lastSmall = newHead;
+    while (left != nullptr && right != nullptr)
+    {
+        if (*(left->data) <= *(right->data))
+        {
+            lastSmall->link = left;
+            left = left->link;
+        }
+        else
+        {
+            lastSmall->link = right;
+            right = right->link;
+        }
+        lastSmall = lastSmall->link;
+    }
+    if (left == nullptr)
+    {
+        lastSmall->link = right;
+    }
+    else
+    {
+        lastSmall->link = left;
+    }
+    return newHead;
+}
 #endif

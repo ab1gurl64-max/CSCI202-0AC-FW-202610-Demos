@@ -46,7 +46,8 @@ int main()
     // bubbleSort(blist);
     // selectionSort(slist);
     // insertionSort(iList, 1000000);
-    mergeSort(iList, 0, 999999);
+    // mergeSort(iList, 0, 999999);
+    list.mergeSort();
     std::cout << "Merge Sort Finished" << std::endl;
 
     Person **people = new Person *[10];
