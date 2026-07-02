@@ -37,8 +37,9 @@ int main()
     }
 
     // bubbleSort(blist);
-    selectionSort(slist);
-    std::cout << "Selection Sort Finished" << std::endl;
+    // selectionSort(slist);
+    insertionSort(iList, 1000000);
+    std::cout << "Insertion Sort Finished" << std::endl;
     return 0;
 }
 
