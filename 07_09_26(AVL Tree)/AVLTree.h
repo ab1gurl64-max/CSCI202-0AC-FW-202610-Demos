@@ -66,6 +66,82 @@ inline AVLTree<t>::Iterator AVLTree<t>::insertAVL(const t &insertItem)
 }
 
 template <class t>
+inline void AVLTree<t>::balanceFromLeft(BinaryNode<t> *&currentNode)
+{
+    BinaryNode<t> *lChild;
+    BinaryNode<t> *lChild_rChild;
+    lChild = currentNode->lLink;
+    switch (lChild->bfactor)
+    {
+    case 0:
+    case -1:
+        currentNode->bfactor = 0;
+        lChild->bfactor = 0;
+        rotateToRight(currentNode);
+        break;
+    case 1:
+        lChild_rChild = lChild->rLink;
+        switch (lChild_rChild->bfactor)
+        {
+        case -1:
+            currentNode->bfactor = 1;
+            lChild->bfactor = 0;
+            break;
+        case 0:
+            currentNode->bfactor = 0;
+            lChild->bfactor = 0;
+            break;
+        case 1:
+            currentNode->bfactor = 0;
+            lChild->bfactor = -1;
+            break;
+        }
+        lChild_rChild->bfactor = 0;
+        rotateToLeft(currentNode->lLink);
+        rotateToRight(currentNode);
+        break;
+    }
+}
+
+template <class t>
+inline void AVLTree<t>::balanceFromRight(BinaryNode<t> *&currentNode)
+{
+    BinaryNode<t> *rChild;
+    BinaryNode<t> *rChild_lChild;
+    rChild = currentNode->rLink;
+    switch (rChild->bfactor)
+    {
+    case 0:
+    case 1:
+        currentNode->bfactor = 0;
+        rChild->bfactor = 0;
+        rotateToLeft(currentNode);
+        break;
+    case -1:
+        rChild_lChild = rChild->lLink;
+        switch (rChild_lChild->bfactor)
+        {
+        case -1:
+            currentNode->bfactor = 0;
+            rChild->bfactor = 1;
+            break;
+        case 0:
+            currentNode->bfactor = 0;
+            rChild->bfactor = 0;
+            break;
+        case 1:
+            currentNode->bfactor = -1;
+            rChild->bfactor = 0;
+            break;
+        }
+        rChild_lChild->bfactor = 0;
+        rotateToRight(currentNode->rLink);
+        rotateToLeft(currentNode);
+        break;
+    }
+}
+
+template <class t>
 inline void AVLTree<t>::insertIntoAVL(BinaryNode<t> *&currentNode, BinaryNode<t> *newNode, bool &isTaller, Iterator &it)
 {
     if (currentNode == nullptr)
