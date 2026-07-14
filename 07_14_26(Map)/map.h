@@ -109,3 +109,22 @@ Pair<k, v> Map<k, v>::Iterator::operator*()
 {
     return *it;
 }
+
+template <class k, class v>
+inline bool Map<k, v>::Iterator::operator==(const Iterator oth) const
+{
+    return this->it == oth.it;
+}
+
+template <class k, class v>
+inline bool Map<k, v>::Iterator::operator!=(const Iterator oth) const
+{
+    return this->it != oth.it;
+}
+
+template <class k, class v>
+typename Map<k, v>::Iterator Map<k, v>::Iterator::operator++()
+{
+    ++it;
+    return *this;
+}
