@@ -1,5 +1,6 @@
 #ifndef PAIR_H
 #define PAIR_H
+#include <iostream>
 
 template <class k, class v>
 class Pair
@@ -17,6 +18,11 @@ public:
     bool operator<=(const Pair<k, v> &oth) const;
     bool operator==(const Pair<k, v> &oth) const;
     bool operator!=(const Pair<k, v> &oth) const;
+    friend std::ostream &operator<<(std::ostream &out, Pair<k, v> &oth)
+    {
+        out << oth.key;
+        return out;
+    };
 
 private:
     // void copyPair(const Pair<k,v>&oth);
@@ -87,4 +93,5 @@ bool Pair<k, v>::operator!=(const Pair<k, v> &oth) const
 {
     return this->key != oth.key;
 }
+
 #endif

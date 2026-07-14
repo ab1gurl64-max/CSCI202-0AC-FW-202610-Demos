@@ -34,15 +34,13 @@ protected:
     AVLTree<Pair<k, v>> tree;
 };
 
-#endif
-
 template <class k, class v>
-inline Map<k, v>::Map()
+Map<k, v>::Map()
 {
 }
 
 template <class k, class v>
-inline v Map<k, v>::at(const k &key) const
+v Map<k, v>::at(const k &key) const
 {
     Pair<k, v> pairForComp(key);
     typename AVLTree<Pair<k, v>>::Iterator item = tree.find(pairForComp);
@@ -54,7 +52,7 @@ inline v Map<k, v>::at(const k &key) const
 }
 
 template <class k, class v>
-inline v &Map<k, v>::operator[](const k &key)
+v &Map<k, v>::operator[](const k &key)
 {
     Pair<k, v> pairforComp(key);
     typename AVLTree<Pair<k, v>>::Iterator item = tree.find(pairforComp);
@@ -67,7 +65,7 @@ inline v &Map<k, v>::operator[](const k &key)
 }
 
 template <class k, class v>
-inline Pair<bool, typename Map<k, v>::Iterator> Map<k, v>::insert(const k &key, const v &value)
+Pair<bool, typename Map<k, v>::Iterator> Map<k, v>::insert(const k &key, const v &value)
 {
     bool insert = true;
     Iterator it(tree.end());
@@ -85,7 +83,7 @@ inline Pair<bool, typename Map<k, v>::Iterator> Map<k, v>::insert(const k &key, 
 }
 
 template <class k, class v>
-inline bool Map<k, v>::deleteItem(const k &key)
+bool Map<k, v>::deleteItem(const k &key)
 {
     Pair<k, v> deleteItem(key);
     tree.deleteNode(deleteItem);
@@ -93,13 +91,13 @@ inline bool Map<k, v>::deleteItem(const k &key)
 }
 
 template <class k, class v>
-inline std::string Map<k, v>::preorder()
+std::string Map<k, v>::preorder()
 {
     return tree.preorderTraversal();
 }
 
 template <class k, class v>
-inline Map<k, v>::Iterator::Iterator(typename AVLTree<Pair<k, v>>::Iterator it)
+Map<k, v>::Iterator::Iterator(typename AVLTree<Pair<k, v>>::Iterator it)
 {
     this->it = it;
 }
@@ -111,13 +109,13 @@ Pair<k, v> Map<k, v>::Iterator::operator*()
 }
 
 template <class k, class v>
-inline bool Map<k, v>::Iterator::operator==(const Iterator oth) const
+bool Map<k, v>::Iterator::operator==(const Iterator oth) const
 {
     return this->it == oth.it;
 }
 
 template <class k, class v>
-inline bool Map<k, v>::Iterator::operator!=(const Iterator oth) const
+bool Map<k, v>::Iterator::operator!=(const Iterator oth) const
 {
     return this->it != oth.it;
 }
@@ -128,3 +126,4 @@ typename Map<k, v>::Iterator Map<k, v>::Iterator::operator++()
     ++it;
     return *this;
 }
+#endif
