@@ -28,7 +28,7 @@ public:
     void insert(const t &insertItem);
     Iterator insertAVL(const t &insertItem);
     Iterator begin() { return Iterator(this->root); };
-    Iterator end() { return Iterator(nullptr); };
+    Iterator end() const { return Iterator(nullptr); };
     Iterator find(const t &searchItem) const;
     bool isBalanced();
 

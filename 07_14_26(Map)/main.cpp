@@ -1,6 +1,6 @@
 #include "binarySearchTree.h"
 #include "AVLTree.h"
-#include "pair.h"
+#include "map.h"
 #include <iostream>
 #include <random>
 #include <chrono>
@@ -18,6 +18,11 @@ int main()
       std::default_random_engine generator(static_cast<unsigned int>(seed));
     */
     int num = distribution(generator);
-    Pair<int, int> nums(num, num);
-    Pair<int, int> nums2(num);
+    Map<int, int> numMap;
+    numMap.insert(num, 7);
+    std::cout << numMap.at(num) << std::endl;
+    numMap[num] = 10;
+    std::cout << numMap[num] << std::endl;
+    numMap[0] = 12;
+    std::cout << numMap[0] << std::endl;
 }

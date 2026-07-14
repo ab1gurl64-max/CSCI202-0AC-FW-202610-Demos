@@ -7,6 +7,7 @@ class Pair
 public:
     Pair(const k &key, const v &value);
     Pair(const k &key);
+
     v &getValue();
     k getKey() const;
     void setValue(const v &value);
