@@ -43,58 +43,38 @@ int main()
     }
     std::cout << std::endl
               << std::endl;
-
     std::cout << "\n\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\nBegin Delete test:\n\n";
-
     std::cout << "Notes about the delete debugger:\nType -1 to exit\nType -2 to print map\n";
-
     while (true)
     {
-
         std::cout << "\n  *** \n";
-
         int ind;
-
         std::cout << "Enter index of node to be deleted: ";
-
         std::cin >> ind;
-
         if (ind == -1)
         {
-
             break;
         }
-
         if (ind == -2)
         {
             std::cout << hobbits.preorder() << std::endl;
             for (auto it = hobbits.begin(); it != hobbits.end(); ++it)
-
             {
-
                 Pair<int, std::string> p = *it;
-
                 std::cout << p.getValue() << std::endl;
             }
         }
-
         else
         {
-
             try
-
             {
 
                 std::cout << "Deleting " << hobbits.at(ind) << "\n";
-
                 std::cout << hobbits.deleteItem(ind)
                           << std::endl;
             }
-
             catch (const std::out_of_range &e)
-
             {
-
                 std::cout << e.what() << '\n';
             }
         }
