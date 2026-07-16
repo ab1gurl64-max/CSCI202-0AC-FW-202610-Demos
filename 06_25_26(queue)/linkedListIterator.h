@@ -39,7 +39,7 @@ LinkedListIterator<t> LinkedListIterator<t>::operator++()
 {
     if (current != nullptr)
     {
-        current = current->link
+        current = current->link;
     }
     return *this;
 }

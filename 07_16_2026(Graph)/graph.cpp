@@ -57,3 +57,31 @@ void Graph::createGraph(std::string filename)
     }
     fin.close();
 }
+
+void Graph::clearGraph()
+{
+    for (int i = 0; i < graph.size(); i++)
+    {
+        graph[i].destroyList();
+    }
+    graph.clear();
+    maxSize = 0;
+}
+
+std::ostream &operator<<(std::ostream &out, Graph &g)
+{
+    out << "digraph {" << std::endl; // graphviz
+    for (int i = 0; i < g.graph.size(); i++)
+    {
+        /* out << i << " ";
+        g.graph[i].print(out);
+        out << std::endl; //python program output*/
+        for (LinkedListIterator<int> graphIt = g.graph[i].begin(); graphIt != g.graph[i].end(); ++graphIt)
+        {
+            out << i << "->" << *graphIt << ";" << std::endl;
+        }
+    }
+    out << std::endl; // graphViz output
+    out << "}";
+    return out;
+}

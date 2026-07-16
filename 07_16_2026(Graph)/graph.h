@@ -15,7 +15,7 @@ public:
     bool isEmpty() const;
     void createGraph(std::string);
     void clearGraph();
-    friend std::ostream &operator<<(std::ostream &, const Graph &);
+    friend std::ostream &operator<<(std::ostream &, Graph &);
 
 protected:
     int maxSize;
