@@ -68,6 +68,75 @@ void Graph::clearGraph()
     maxSize = 0;
 }
 
+std::string Graph::depthFirstTraversal()
+{
+    std::vector<bool> visited(graph.size(), false);
+    std::ostringstream out;
+    for (int i = 0; i < graph.size(); i++)
+    {
+        if (!visited[i])
+        {
+            dft(i, visited, out);
+        }
+    }
+    return out.str();
+}
+
+std::string Graph::dftAtVertex(int vertex)
+{
+    std::vector<bool> visited(graph.size(), false);
+    std::ostringstream out;
+    dft(vertex, visited, out);
+    return out.str();
+}
+
+std::string Graph::breadthFirstTraversal()
+{
+    LinkedQueue<int> queue;
+    std::vector<bool> visited(graph.size(), false);
+    std::ostringstream out;
+    for (int i = 0; i < graph.size(); i++)
+    {
+        if (!visited[i])
+        {
+            queue.enqueue(i);
+            while (!queue.isEmptyQueue())
+            {
+                int u = queue.dequeue();
+                if (!visited[u])
+                {
+                    visited[u] = true;
+                    out << u << " ";
+                }
+                for (auto graphIt = graph[u].begin(); graphIt != graph[u].end(); ++graphIt)
+                {
+                    int w = *graphIt;
+                    if (!visited[w])
+                    {
+                        queue.enqueue(w);
+                    }
+                }
+            }
+        }
+    }
+    return out.str();
+}
+
+void Graph::dft(int v, std::vector<bool> &visited, std::ostringstream &output)
+{
+    visited[v] = true;
+    output << v << " ";
+    LinkedListIterator<int> graphIt;
+    for (graphIt = graph[v].begin(); graphIt != graph[v].end(); ++graphIt)
+    {
+        int w = *graphIt;
+        if (!visited[w])
+        {
+            dft(w, visited, output);
+        }
+    }
+}
+
 std::ostream &operator<<(std::ostream &out, Graph &g)
 {
     out << "digraph {" << std::endl; // graphviz

@@ -8,5 +8,8 @@ int main()
     g.createGraph("graph.txt");
     std::ofstream out("g.txt");
     out << g;
+    std::cout << g.breadthFirstTraversal() << std::endl;
+    std::cout << g.depthFirstTraversal() << std::endl;
+    std::cout << g.dftAtVertex(6) << std::endl;
     return 0;
 }

@@ -16,10 +16,16 @@ public:
     void createGraph(std::string);
     void clearGraph();
     friend std::ostream &operator<<(std::ostream &, Graph &);
+    std::string depthFirstTraversal();
+    std::string dftAtVertex(int vertex);
+    std::string breadthFirstTraversal();
 
 protected:
     int maxSize;
     std::vector<UnorderedLinkedList<int>> graph;
+
+private:
+    void dft(int v, std::vector<bool> &visited, std::ostringstream &output);
 };
 
 #endif
