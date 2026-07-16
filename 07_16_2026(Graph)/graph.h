@@ -19,10 +19,12 @@ public:
     std::string depthFirstTraversal();
     std::string dftAtVertex(int vertex);
     std::string breadthFirstTraversal();
+    static std::regex nameRegex;
 
 protected:
     int maxSize;
     std::vector<UnorderedLinkedList<int>> graph;
+    std::vector<std::string> names;
 
 private:
     void dft(int v, std::vector<bool> &visited, std::ostringstream &output);

@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "graph.h"
+// graph viz online https://dreampuf.github.io/GraphvizOnline/
 
 int main()
 {
@@ -10,6 +11,6 @@ int main()
     out << g;
     std::cout << g.breadthFirstTraversal() << std::endl;
     std::cout << g.depthFirstTraversal() << std::endl;
-    std::cout << g.dftAtVertex(6) << std::endl;
+    std::cout << g.dftAtVertex(2) << std::endl;
     return 0;
 }

@@ -1,5 +1,7 @@
 #include "graph.h"
 
+std::regex Graph::nameRegex{R"([[:alpha:]]+\s[[:alpha:]]+)"};
+
 Graph::Graph(int size)
 {
     if (size >= 0)
@@ -37,22 +39,31 @@ void Graph::createGraph(std::string filename)
     {
         std::string temp;
         getline(fin, temp);
-        totalVertex++;
+        if (std::regex_match(temp, nameRegex))
+        {
+            names.push_back(temp);
+        }
     }
     fin.seekg(0);
-    if (maxSize < totalVertex)
+    if (maxSize < names.size())
     {
-        maxSize = totalVertex;
+        maxSize = names.size();
         graph.resize(maxSize);
     }
     while (!fin.eof())
     {
-        fin >> vertex;
-        fin >> adjacentVertex;
-        while (adjacentVertex != -999)
+        std::string line;
+        getline(fin, line);
+        if (!std::regex_match(line, nameRegex))
         {
-            graph[vertex].insert(adjacentVertex);
-            fin >> adjacentVertex;
+            std::istringstream sin(line);
+            sin >> vertex;
+            sin >> adjacentVertex;
+            while (adjacentVertex != -999)
+            {
+                graph[vertex].insert(adjacentVertex);
+                sin >> adjacentVertex;
+            }
         }
     }
     fin.close();
@@ -79,6 +90,7 @@ std::string Graph::depthFirstTraversal()
             dft(i, visited, out);
         }
     }
+    out << "\b\b\b\b\b     ";
     return out.str();
 }
 
@@ -87,6 +99,7 @@ std::string Graph::dftAtVertex(int vertex)
     std::vector<bool> visited(graph.size(), false);
     std::ostringstream out;
     dft(vertex, visited, out);
+    out << "\b\b\b\b\b     ";
     return out.str();
 }
 
@@ -125,7 +138,8 @@ std::string Graph::breadthFirstTraversal()
 void Graph::dft(int v, std::vector<bool> &visited, std::ostringstream &output)
 {
     visited[v] = true;
-    output << v << " ";
+
+    output << names[v] << " --> ";
     LinkedListIterator<int> graphIt;
     for (graphIt = graph[v].begin(); graphIt != graph[v].end(); ++graphIt)
     {
