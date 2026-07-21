@@ -18,6 +18,41 @@ int main()
     Map<int, std::string> hobbits;
     Map<std::string, Donut *> hobbitDonuts;
 
+    //new map testing 
+    Map<int, std::string> myMap; 
+
+    //inserting item 
+    myMap.insert(1,"Apple");
+    myMap.insert(2,"Banana");
+    myMap.insert(3,"Orange");
+    myMap.insert(4,"Grape");
+
+     for (auto it = myMap.begin(); it != myMap.end(); ++it)
+    {
+        Pair<int, std::string> p = *it;
+        std::cout << p.getKey() << " --- " << p.getVaule() << std::endl;
+    }
+
+    //changing items 
+    myMap[2] = "Strawberry";
+    std:cout << myMap[2] << std::endl;
+
+    //adding item 
+    myMap[5] = "watermelon"
+    std::cout << myMap[5] << std::endl;
+
+    myMap.deleteItem(3);
+
+    for (auto it = myMap.begin(); it != myMap.end(); ++it)
+    {
+        Pair<int, std::string> p = *it;
+        std::cout << p.getKey() << " --- " << p.getVaule() << std::endl;
+    }
+
+    std::cout << "Preorder traversal:" << std::endl;
+    std::cout << myMap.preorder() << std::endl;
+    
+
     std::random_device rd;
     std::uniform_int_distribution<int> icingDist(0, static_cast<int>(icingType::NOICE));
     std::uniform_int_distribution<int> toppingDist(0, static_cast<int>(Donut::toppingType::NOTOP));
