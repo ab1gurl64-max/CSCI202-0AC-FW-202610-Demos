@@ -1,0 +1,4 @@
+for wsl
+sudo apt update
+sudo apt install openssl
+sudo apt install libssl-dev
