@@ -12,7 +12,8 @@ int main()
     std::string message2 = "Prepare to put mustard on those words, for you will soon be consuming them along with this slice of humble pie that comes direct from the oven of shame, set at gas mark 'egg on your face'.";
     std::string message3 = "prepare to put mustard on those words, for you will soon be consuming them along with this slice of humble pie that comes direct from the oven of shame, set at gas mark 'egg on your face'.";
     LinkedStack<Block> blockChain;
-    Block genesis(1, "Genesis Block");
+    unsigned char hash[SHA256_DIGEST_LENGTH] = {0};
+    Block genesis(1, "Genesis Block", hash);
     blockChain.push(genesis);
     Block block1(2, message, blockChain.peek().getHash());
     blockChain.push(block1);
