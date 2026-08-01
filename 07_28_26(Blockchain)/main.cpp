@@ -1,4 +1,5 @@
 #include "block.h"
+#include "blockchain.h"
 #include "linkedStack.h"
 
 // M08 lab create a block chain class using your choice of linkedQueue, linkedStack, or unorderedLinkedList
@@ -18,6 +19,12 @@ int main()
     Block block1(2, message, blockChain.peek().getHash());
     blockChain.push(block1);
 
+
+    BlockChain chain;
+
+    chain.addMessage("Space star ordering is based on the twin scientific principles of star-maths and wishy thinking.");
+    chain.addMessage("Prepare to put mustard on those words, for you will soon be consuming them along with this slice of humble pie that comes direct from the oven of shame, set at gas mark 'egg on your face'.");
+    chain.addMessage("prepare to put mustard on those words, for you will soon be consuming them along with this slice of humble pie that comes direct from the oven of shame, set at gas mark 'egg on your face'.");
     return 0;
 }
 // 17374467124495395714
